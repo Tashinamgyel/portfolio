@@ -1,0 +1,16 @@
+{
+  "name": "Tashi Namgyel - Full Stack Developer",
+  "short_name": "Tashi Namgyel",
+  "description": "Full Stack Developer Portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#facc15",
+  "icons": [
+    {
+      "src": "/images/tashi-profile.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    }
+  ]
+}
