@@ -20,21 +20,50 @@ export default function Portfolio() {
     gpa: 0,
     fundraised: 0,
   })
+  const [mouseTrail, setMouseTrail] = useState<
+      Array<{
+        id: number
+        x: number
+        y: number
+        timestamp: number
+      }>
+  >([])
 
   const heroRef = useRef<HTMLElement>(null)
   const projectsRef = useRef<HTMLElement>(null)
 
-  // Mouse tracking for parallax effects
+  // Single mouse tracking effect
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth) * 100,
         y: (e.clientY / window.innerHeight) * 100,
       })
+
+      // Add mouse trail effect
+      const newTrailPoint = {
+        id: Date.now(),
+        x: e.clientX,
+        y: e.clientY,
+        timestamp: Date.now(),
+      }
+
+      setMouseTrail((prev) => [...prev.slice(-10), newTrailPoint])
     }
 
     window.addEventListener("mousemove", handleMouseMove)
     return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [])
+
+  // Clean up trail effect
+  useEffect(() => {
+    const cleanupTrail = () => {
+      const now = Date.now()
+      setMouseTrail((prev) => prev.filter((point) => now - point.timestamp < 1000))
+    }
+
+    const trailInterval = setInterval(cleanupTrail, 100)
+    return () => clearInterval(trailInterval)
   }, [])
 
   // Loading animation
@@ -193,17 +222,64 @@ export default function Portfolio() {
     languages: ["English (Fluent)", "Hindi (Proficient)", "Dzongkha (Native)", "Thai (Conversational)"],
   }
 
-  const FloatingElement = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
-      <div
-          className="animate-float"
-          style={{
-            animationDelay: `${delay}s`,
-            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
-          }}
-      >
-        {children}
-      </div>
-  )
+  // Simple Background Effects Component
+  const SimpleBackgroundEffects = () => {
+    return (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Particle system inspired by your code */}
+          {[...Array(30)].map((_, i) => (
+              <div
+                  key={`particle-${i}`}
+                  className="particle"
+                  style={
+                    {
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      width: `${Math.random() * 6 + 3}px`,
+                      height: `${Math.random() * 6 + 3}px`,
+                      animationDelay: `${Math.random() * 4}s`,
+                      animationDuration: `${Math.random() * 6 + 6}s`,
+                      "--move-x": `${(Math.random() - 0.5) * 80}px`,
+                      "--move-y": `${(Math.random() - 0.5) * 80}px`,
+                      transform: `translate(${mousePosition.x * 0.05}px, ${mousePosition.y * 0.05}px)`,
+                    } as React.CSSProperties
+                  }
+              />
+          ))}
+
+          {/* Simple geometric shapes - much slower movement */}
+          {Array.from({ length: 8 }).map((_, i) => (
+              <div
+                  key={`shape-${i}`}
+                  className="absolute border-2 border-black opacity-20 transition-transform duration-[3000ms] ease-out"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    width: `${Math.random() * 40 + 30}px`,
+                    height: `${Math.random() * 40 + 30}px`,
+                    transform: `rotate(${Math.random() * 360}deg) translate(${mousePosition.x * 0.0005}px, ${mousePosition.y * 0.0005}px)`,
+                  }}
+              />
+          ))}
+
+          {/* Slower floating text elements */}
+          {["CODE", "DESIGN", "BUILD", "DEPLOY"].map((text, i) => (
+              <div
+                  key={`text-${i}`}
+                  className="absolute text-black font-black opacity-10 text-2xl animate-slow-float pointer-events-none select-none"
+                  style={{
+                    left: `${20 + i * 20}%`,
+                    top: `${30 + i * 15}%`,
+                    animationDelay: `${i * 3}s`,
+                    transform: `translate(${mousePosition.x * 0.005}px, ${mousePosition.y * 0.005}px)`,
+                  }}
+              >
+                {text}
+              </div>
+          ))}
+        </div>
+    )
+  }
 
   return (
       <div
@@ -212,7 +288,36 @@ export default function Portfolio() {
         <style jsx>{`
           @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(1deg); }
             50% { transform: translateY(-20px) rotate(2deg); }
+            75% { transform: translateY(-10px) rotate(1deg); }
+          }
+
+          @keyframes particle-drift {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(10px, -10px) rotate(90deg); }
+            50% { transform: translate(-5px, -20px) rotate(180deg); }
+            75% { transform: translate(-10px, -10px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+          }
+
+          @keyframes glow-pulse {
+            0%, 100% {
+              box-shadow: 0 0 5px rgba(250, 204, 21, 0.3);
+              transform: scale(1);
+            }
+            50% {
+              box-shadow: 0 0 20px rgba(250, 204, 21, 0.8);
+              transform: scale(1.1);
+            }
+          }
+
+          .particle-glow {
+            animation: glow-pulse 3s ease-in-out infinite;
+          }
+
+          .particle-drift {
+            animation: particle-drift 15s linear infinite;
           }
           @keyframes pulse-glow {
             0%, 100% { box-shadow: 0 0 20px rgba(255, 193, 7, 0.5); }
@@ -243,6 +348,7 @@ export default function Portfolio() {
           @keyframes blink {
             50% { border-color: transparent; }
           }
+
           .animate-float {
             animation: float 6s ease-in-out infinite;
           }
@@ -312,6 +418,29 @@ export default function Portfolio() {
             60% { transform: translate(-2px, 2px); }
             80% { transform: translate(-2px, -2px); }
           }
+          @keyframes slow-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(0.5deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+            75% { transform: translateY(-5px) rotate(0.5deg); }
+          }
+
+          .animate-slow-float {
+            animation: slow-float 12s ease-in-out infinite;
+          }
+          @keyframes particle-move {
+            0% { transform: translate(0, 0); opacity: 0.2; }
+            50% { transform: translate(var(--move-x), var(--move-y)); opacity: 0.6; }
+            100% { transform: translate(0, 0); opacity: 0.2; }
+          }
+
+          .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 70%);
+            animation: particle-move 8s ease-in-out infinite;
+            pointer-events: none;
+          }
         `}</style>
 
         {/* Hero Section */}
@@ -321,17 +450,22 @@ export default function Portfolio() {
             className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-400 to-orange-500 dark:from-yellow-600 dark:to-orange-700 text-black relative overflow-hidden"
         >
           {/* Animated background elements */}
-          <div className="absolute inset-0">
-            {[...Array(20)].map((_, i) => (
-                <FloatingElement key={i} delay={i * 0.2}>
-                  <div
-                      className="absolute w-4 h-4 bg-black opacity-10 rounded-full"
-                      style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                      }}
-                  />
-                </FloatingElement>
+          <SimpleBackgroundEffects />
+
+          {/* Mouse Trail Effect */}
+          <div className="absolute inset-0 pointer-events-none">
+            {mouseTrail.map((point, index) => (
+                <div
+                    key={point.id}
+                    className="absolute w-2 h-2 bg-yellow-400 rounded-full"
+                    style={{
+                      left: point.x,
+                      top: point.y,
+                      opacity: ((index + 1) / mouseTrail.length) * 0.5,
+                      transform: "translate(-50%, -50%)",
+                      animation: "particle-drift 2s ease-out forwards",
+                    }}
+                />
             ))}
           </div>
 
