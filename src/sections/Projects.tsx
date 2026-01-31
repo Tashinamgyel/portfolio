@@ -48,7 +48,7 @@ const projects: Project[] = [
     fullDescription:
       'The Constitution of Bhutan App is the first digital application providing access to the Bhutanese Constitution. Built with Kotlin and Jetpack Compose, it features full-text search, bookmarking, dark mode, and font size adjustment. The app was published on the Google Play Store and has garnered 100+ downloads.',
     tech: ['Kotlin', 'Jetpack Compose', 'Material 3', 'Room'],
-    link: '#',
+    link: 'https://play.google.com/store/apps/details?id=com.tashi.constitutionofbhutan&pcampaignid=web_share',
     linkType: 'playstore',
     stats: '100+ Downloads',
     image: '/images/project-constitution-drawer.png',
