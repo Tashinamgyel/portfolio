@@ -222,7 +222,7 @@ export default function Experience() {
           style={{ transitionTimingFunction: 'var(--ease-out-expo)' }}
         >
           <a
-            href="/full-portfolio.pdf"
+            href="https://drive.google.com/file/d/1HU4j7rUDtI5VlxdxU34-oSeRLYfaYu3_/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 bg-black dark:bg-white dark:text-black text-white rounded-full hover:bg-red-600 dark:hover:bg-red-500 transition-colors duration-300 group"
