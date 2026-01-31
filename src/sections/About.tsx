@@ -66,9 +66,9 @@ export default function About() {
             >
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-lg">
                 I'm a Software Engineer from Bhutan, currently based in Thailand. 
-                With a GPA of <strong className="dark:text-gray-300">3.96/4.00</strong> in Information and Communication 
+                With a Bachelor's of Science{/*GPA of <strong className="dark:text-gray-300">3.96/4.00</strong> */} in Information and Communication 
                 Technology from Rangsit University, I specialize in building scalable 
-                backend systems, mobile applications, and immersive game experiences.
+                backend systems and mobile applications.
               </p>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 My journey in tech has been driven by a passion for creating solutions 
