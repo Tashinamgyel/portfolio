@@ -124,7 +124,7 @@ export default function Hero() {
               className="text-lg text-gray-600 dark:text-gray-400 font-medium animate-fade-in-up"
               style={{ animationDelay: '900ms' }}
             >
-              Full-Stack Developer | Mobile (Flutter/Native) | Game Development
+              Full-Stack Developer | Mobile (Flutter/Native) 
             </p>
 
             {/* Description */}
