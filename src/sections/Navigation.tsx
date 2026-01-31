@@ -80,7 +80,7 @@ export default function Navigation() {
               <Button
                 variant="outline"
                 className="rounded-full border-black dark:border-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300 group"
-                onClick={() => window.open('/full-portfolio.pdf', '_blank')}
+                onClick={() => window.open('https://drive.google.com/file/d/1HU4j7rUDtI5VlxdxU34-oSeRLYfaYu3_/view?usp=sharing', '_blank')}
               >
                 <Download className="w-4 h-4 mr-2 transition-transform duration-300 group-hover:translate-y-0.5" />
                 Download CV
