@@ -169,14 +169,14 @@ export default function Hero() {
                 <div className="text-3xl font-bold dark:text-white">10+</div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">Projects</div>
               </div>
-              <div>
+              {/*<div>
                 <div className="text-3xl font-bold dark:text-white">99%</div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">Uptime</div>
               </div>
               <div>
                 <div className="text-3xl font-bold dark:text-white">3.96</div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">GPA</div>
-              </div>
+              </div>*/}
             </div>
 
             {/* Social Links */}
