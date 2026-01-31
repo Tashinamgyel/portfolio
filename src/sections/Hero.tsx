@@ -132,8 +132,8 @@ export default function Hero() {
               className="text-gray-600 dark:text-gray-400 leading-relaxed max-w-lg animate-fade-in-up"
               style={{ animationDelay: '1000ms' }}
             >
-              Results-oriented Software Engineer with a BSc in ICT (GPA 3.96) and 
-              production experience in building scalable backend, mobile, and game 
+              Results-oriented Software Engineer with production 
+              experience in building scalable backend and mobile 
               applications.
             </p>
 
